@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoScan | Future of Recycling</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #00ffcc;
+            --secondary: #ff00ff;
+            --bg-dark: #0a0a12;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            transition: background 0.5s ease;
+        }
+
+        /* Light Mode Overrides */
+        body.light {
+            background: #e0e0e0;
+            color: #1a1a2e;
+            --glass: rgba(0, 0, 0, 0.05);
+            --glass-border: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(10, 10, 18, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        nav h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        body.light nav ul li a { color: #1a1a2e; }
+
+        nav ul li a:hover { color: var(--secondary); }
+
+        .dark-toggle {
+            padding: 8px 16px;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a12 100%);
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .hero h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .hero button {
+            padding: 15px 40px;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, var(--secondary), #7000ff);
+            border: none;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+            transition: 0.4s;
+        }
+
+        .hero button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.7);
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 10%;
+        }
+
+        h2.section-title {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 50px;
+            color: #fff;
+        }
+
+        body.light h2.section-title { color: #1a1a2e; }
+
+        /* Feature Cards */
+        .feature-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 15px;
+        }
+
+        .card button {
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: bold;
+        }
+
+        .card button:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        /* Carbon Tracker Specific */
+        #kmTravel {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            color: var(--primary);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        /* Contact Form */
+        .contact form {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 25px;
+            border: 1px solid var(--glass-border);
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            border-radius: 12px;
+        }
+
+        form button {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            font-size: 14px;
+            color: #666;
+        }
+
+        #scanResult {
+            margin-top: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            color: var(--secondary);
+            min-height: 24px;
+        }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            nav ul { display: none; }
+            section { padding: 60px 5%; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <h1>EcoScan 🌐</h1>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><button class="dark-toggle" id="darkToggle">Light Mode</button></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Scan. Sort. Save.</h2>
+            <p>Next-gen waste identification powered by artificial intelligence.</p>
+            <button onclick="startScan()">INITIALIZE SCANNER</button>
+            <div id="scanResult"></div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">Core Protocols</h2>
+        <div class="feature-box">
+            <div class="card">
+                <h3>📷 Smart Scanner</h3>
+                <p>Advanced recognition algorithms to classify your waste in real-time.</p>
+            </div>
+
+            <div class="card">
+                <h3>♻ Recycling Guide</h3>
+                <p>Manual entry logs:</p>
+                <button onclick="addPoints(10)">Plastic ♻️</button>
+                <button onclick="addPoints(8)">Paper 📄</button>
+                <button onclick="addPoints(12)">Glass 🥂</button>
+                <button onclick="addPoints(15)">Metal 🛠️</button>
+                <button onclick="addPoints(20)">Organic 🌱</button>
+            </div>
+
+            <div class="card">
+                <h3>🌍 Eco Score</h3>
+                <p>Current Sustainability Rating:</p>
+                <h2 id="ecoPoints" style="color: var(--secondary); margin-top:10px;">0</h2>
+                <p style="font-size: 12px; margin-top: 10px;">Keep recycling to boost your rank!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="carbon">
+        <h2 class="section-title">Carbon Footprint</h2>
+        <div class="feature-box" style="justify-content: center;">
+            <div class="card" style="max-width: 500px; margin: auto;">
+                <h3>🚗 Travel Calculator</h3>
+                <p>Input daily kilometers to calculate CO₂ impact.</p>
+                <input type="number" id="kmTravel" placeholder="Distance in KM">
+                <button onclick="calculateCarbon()">Process Data</button>
+                <h3 id="carbonResult" style="margin-top: 20px; color: var(--secondary);">0.00 kg CO₂</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2 class="section-title">Mission Brief</h2>
+        <div class="card" style="max-width: 800px; margin: auto;">
+            <p style="line-height: 1.8; font-size: 1.1rem;">
+                EcoScan is a futuristic initiative designed to bridge the gap between technology and environmental preservation. 
+                By utilizing AI-driven scanning and real-time carbon tracking, we empower users to take control of their ecological footprint. 
+                Join the network. Digitize your impact. Save the planet.
+            </p>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="section-title">Establish Connection</h2>
+        <form onsubmit="event.preventDefault(); alert('Message Encrypted and Sent!');">
+            <input type="text" placeholder="Identity Name" required>
+            <input type="email" placeholder="Digital Address" required>
+            <textarea rows="4" placeholder="Your Transmission"></textarea>
+            <button type="submit">SEND SIGNAL</button>
+        </form>
+    </section>
+
+    <footer>
+        © 2026 EcoScan | System Protocol by Sree Nikhil 🌐
+    </footer>
+
+    <script>
+        // Dark Mode Toggle
+        const darkToggle = document.getElementById("darkToggle");
+        darkToggle.addEventListener("click", function() {
+            document.body.classList.toggle("light");
+            darkToggle.innerText = document.body.classList.contains("light") ? "Dark Mode" : "Light Mode";
+        });
+
+        // Scan Simulation
+        function startScan() {
+            const result = document.getElementById("scanResult");
+            result.innerHTML = "ACCESSING CAMERA... 🔍";
+            result.style.color = "var(--primary)";
+
+            setTimeout(function() {
+                const materials = ["Plastic ♻️", "Paper 📄", "Glass 🥂", "Metal 🛠️", "Organic 🌱"];
+                const rand = materials[Math.floor(Math.random() * materials.length)];
+                result.innerHTML = "SCAN COMPLETE: " + rand;
+                result.style.color = "var(--secondary)";
+            }, 2000);
+        }
+
+        // Eco Score
+        let ecoScore = 0;
+        function addPoints(points) {
+            ecoScore += points;
+            document.getElementById("ecoPoints").innerText = ecoScore;
+            // Visual feedback
+            const scoreDisplay = document.getElementById("ecoPoints");
+            scoreDisplay.style.transform = "scale(1.3)";
+            setTimeout(() => scoreDisplay.style.transform = "scale(1)", 200);
+        }
+
+        // Carbon Calculation
+        function calculateCarbon() {
+            let km = document.getElementById("kmTravel").value;
+            if(!km) return;
+            let carbon = km * 0.21;
+            document.getElementById("carbonResult").innerText = carbon.toFixed(2) + " kg CO₂";
+        }
+    </script>
+</body>
+</html>
